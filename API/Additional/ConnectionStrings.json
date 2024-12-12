@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "MyDatabaseConnection": "Server=[SERVICE],[PORT];Database=[DATABASE];User Id=sa;Password=[PASSWORD];TrustServerCertificate=True"
+  }
+}

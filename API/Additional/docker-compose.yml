@@ -1,0 +1,87 @@
+﻿services:
+    api-gateway:
+        container_name: api-gateway
+        restart: always
+        build:
+            context: .
+            dockerfile: PROJECT/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTP_PORTS=80
+        ports:
+            - "8082:80"
+        networks:
+            - my-internal-network
+            - default
+    
+    api-1:
+        container_name: api-1
+        restart: always
+        build:
+            context: .
+            dockerfile: PROJECT/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTP_PORTS=5000
+        ports:
+            - "5000:5000"
+            - "5001:5001"
+        depends_on:
+            - database-1
+            - api-gateway
+        networks:
+            - my-network
+
+    api-2:
+        container_name: api-2
+        restart: always
+        build:
+            context: .
+            dockerfile: PROJECT/Dockerfile
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTP_PORTS=5000
+        ports:
+            - "5002:5000"
+            - "5003:5001"
+        depends_on:
+            - database-2
+            - api-gateway
+        networks:
+            - my-network
+
+    database-1:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        container_name: database-1
+        restart: always
+        environment:
+            SA_PASSWORD: PASSWORD
+            ACCEPT_EULA: "Y"
+        ports:
+            - "1401:1433"
+        volumes:
+            - ./data/database1:/var/opt/mssql/data
+        networks:
+            - my-network
+
+    database-2:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        container_name: database-2
+        restart: always
+        environment:
+            SA_PASSWORD: PASSWORD
+            ACCEPT_EULA: "Y"
+        ports:
+            - "1402:1433"
+        volumes:
+            - ./data/database2:/var/opt/mssql/data
+        networks:
+            - my-network
+
+networks:
+    my-network:
+        driver: bridge
+
+    my-internal-network:
+        driver: bridge
+        internal: true
