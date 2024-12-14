@@ -1,5 +1,6 @@
 ﻿{
   "ConnectionStrings": {
-    "MyDatabaseConnection": "Server=[SERVICE],[PORT];Database=[DATABASE];User Id=sa;Password=[PASSWORD];TrustServerCertificate=True"
+    "MSSQL": "Server=[SERVICE],[PORT];Database=[DATABASE];User Id=[USER];Password=[PASSWORD];TrustServerCertificate=True",
+    "PostgreSQL": "Host=[SERVICE];Port=[PORT];Database=[DATABASE];Username=[USER];Password=[PASSWORD];"
   }
 }
