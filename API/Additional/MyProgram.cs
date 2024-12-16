@@ -20,7 +20,7 @@ public class MyProgram
         //builder.Services.AddScoped<MyClassRepository>();
         //builder.Services.AddScoped<IRepository<MyClass>, MyClassCachedRepository>();
 
-        //builder.Services.AddTransient<MyClassRepository>();
+        //builder.Services.AddTransient<IRepository<MyClass>, MyClassRepository>();
 
         //builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MyDatabaseConnection"), sqlOptions =>
         //{
