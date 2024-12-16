@@ -56,7 +56,10 @@ public class MyClassRepository : IRepository<MyClass>
         return await retryPolicy.ExecuteAsync(async () =>
         {
             // Update, save, and return
-            var myObject = db.MyObjects.Update(entry).Entity;
+            var myObject = await db.MyObjects.FindAsync(entry);
+
+            myObject!.Name = entry.Name;
+            
             await db.SaveChangesAsync();
             return myObject;
         });
